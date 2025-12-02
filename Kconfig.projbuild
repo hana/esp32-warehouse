@@ -1,0 +1,16 @@
+menu "Warehouse Configuration"
+config WAREHOUSE_PARTITION_LABEL
+        string "Storage partition name"
+        default "storage"
+        help
+            Name of the partition to save the data.
+
+config WAREHOUSE_SAVE_MPAK
+    bool "Enable the use of .mpak"
+    default y    
+        
+config WAREHOUSE_DEFAULT_FILENAME
+    string "Data file name"
+    default "warehouse"
+
+endmenu
