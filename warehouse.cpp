@@ -7,18 +7,16 @@
 
 #include "./lib/nlohmann/json.hpp"
 
-// #include "esp_system.h"
-// #include "esp_mac.h"
 #include "esp_log.h"
 #include "esp_littlefs.h"
 
-void Warehouse::test() {
+void warehouse_t::test() {
     static_assert(__cplusplus >= 202302L);
     init();
     load();
 }
 
-void Warehouse::init(void)  {
+void warehouse_t::init(void)  {
     // mount
     constexpr auto TAG = "Warehouse::init";
     const auto base_path = std::string("/") + std::string(CONFIG_WAREHOUSE_PARTITION_LABEL);
@@ -49,7 +47,7 @@ void Warehouse::init(void)  {
     }
 }
 
-void Warehouse::load() {
+void warehouse_t::load() {
     
     // if (!mounted) mount(); 
     constexpr auto TAG = "Wavehouse::load";
@@ -87,7 +85,7 @@ void Warehouse::load() {
     fclose(file);
 }
 
-void Warehouse::save() {
+void warehouse_t::save() {
     // if (!mounted) mount();
     constexpr auto TAG = "Wavehouse::save";
 

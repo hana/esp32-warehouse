@@ -1,6 +1,6 @@
-idf_component_register(SRCS "warehouse.cpp"
+idf_component_register(SRCS "warehouse.cpp" "lib/Singleton/Singleton.cpp"
 
-                    INCLUDE_DIRS "include" "lib/nlohmann")
+                    INCLUDE_DIRS "include" "lib/nlohmann" "lib/Singleton")
 
 # littlefs_create_partition_image(storage ../flash_data FLASH_IN_PROJECT)
 

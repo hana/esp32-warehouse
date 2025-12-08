@@ -6,7 +6,7 @@
 
 #include "../lib/nlohmann/json.hpp"
 
-class Warehouse {
+class warehouse_t {
 public:
     void test();
     void init();
@@ -47,5 +47,7 @@ private:
     nlohmann::json data;
 };
 
+#include "../lib/Singleton/Singleton.hpp"
+using Warehouse = Singleton<warehouse_t>;
 
 
