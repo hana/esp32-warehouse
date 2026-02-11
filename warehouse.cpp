@@ -57,29 +57,24 @@ void warehouse_t::load() {
     path /= CONFIG_WAREHOUSE_DEFAULT_FILENAME;
     path += get_extension();
     
-    auto file = fopen(fs::absolute(path).c_str(), "rb");
+    const auto file = fopen(fs::absolute(path).c_str(), "rb");
     if(file == nullptr) {                      
         ESP_LOGE(TAG, "open failed.");        
         return;                   
     } else {
-        // if (!json::accept(file)) { // check if the file is a valid json
-        //     log_d("Invalid JSON file.");            
-        // } else { 
+        if (!nlohmann::json::accept(file)) {
+            ESP_LOGE(TAG, "open failed.");            
+        } else {
             // actual load                
-                using namespace nlohmann;
-                try {
-                    data = json::from_msgpack(file, true, true);
-                } catch (json::parse_error& ex) {
-                    ESP_LOGE(TAG, "Failed to load data: %d", ex.byte);
-                    data.clear();
-                }
-
-                if(data.is_discarded()) {
-                    ESP_LOGE(TAG, "Failed to load data.");
-                    data.clear();
-                }
-
-        // }
+            using namespace nlohmann;
+            
+            data = json::from_msgpack(file, true, false);
+                    
+            if(data.is_discarded()) {
+                ESP_LOGE(TAG, "Failed to load data.");
+                data.clear();
+            }
+        }        
     }
 
     fclose(file);
