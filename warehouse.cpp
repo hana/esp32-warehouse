@@ -59,22 +59,18 @@ void warehouse_t::load() {
     
     const auto file = fopen(fs::absolute(path).c_str(), "rb");
     if(file == nullptr) {                      
-        ESP_LOGE(TAG, "open failed.");        
+        ESP_LOGE(TAG, "Open failed. Maybe the file is missing?");        
         return;                   
     } else {
-        if (!nlohmann::json::accept(file)) {
-            ESP_LOGE(TAG, "open failed.");            
-        } else {
-            // actual load                
-            using namespace nlohmann;
+        // actual load                
+        using namespace nlohmann;
             
-            data = json::from_msgpack(file, true, false);
+        data = json::from_msgpack(file, true, false);
                     
-            if(data.is_discarded()) {
-                ESP_LOGE(TAG, "Failed to load data.");
-                data.clear();
-            }
-        }        
+        if(data.is_discarded()) {
+            ESP_LOGE(TAG, "Failed to load data.");
+            data.clear();
+        }       
     }
 
     fclose(file);
