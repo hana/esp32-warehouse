@@ -21,8 +21,8 @@ public:
 
     template<typename T>
     const T get(const char* key, const T value_if_missing = T()) {
-        if(data.count(key)) {
-            return data[key];         
+        if(data.count(key)) {            
+            return data[key];
         } else {
             data[key] = value_if_missing;                        
             return value_if_missing;
