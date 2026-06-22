@@ -24,8 +24,11 @@ void warehouse_t::init(void)  {
         esp_vfs_littlefs_conf_t conf = {
             .base_path = base_path.c_str(),
             .partition_label = "storage",
+            .partition = nullptr,
             .format_if_mount_failed = true,
-            .dont_mount = false,        
+            .read_only = false,
+            .dont_mount = false,
+            .grow_on_mount = true    
         };
 
         if(const esp_err_t ret = esp_vfs_littlefs_register(&conf); ret != ESP_OK) {
